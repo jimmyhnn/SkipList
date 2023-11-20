@@ -1,0 +1,103 @@
+Mon Nov 20 06:39:18 UTC 2023
+Linux LinuxMachine 5.15.90.1-microsoft-standard-WSL2 #1 SMP Fri Jan 27 02:56:13 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+uid=1000(cssuwbstudent) gid=1000(cssuwbstudent) groups=1000(cssuwbstudent),10(wheel)
+=====================================================
+1. Compilation warnings are in the section below
+=====================================================
+=====================================================
+2. Program output are in the section below
+=====================================================
+test1 done.
+test2 done.
+test3 done.
+test4 done.
+Done.
+=====================================================
+3. clang-tidy warnings are in the section below
+=====================================================
+13129 warnings generated.
+18892 warnings generated.
+35093 warnings generated.
+/home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/skiplist.cpp:58:20: error: 2 adjacent parameters of 'SkipList' of similar type ('int') are easily swapped by mistake [bugprone-easily-swappable-parameters,-warnings-as-errors]
+SkipList::SkipList(int levels, int probability) {
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/skiplist.cpp:58:24: note: the first parameter in the range is 'levels'
+SkipList::SkipList(int levels, int probability) {
+                       ^~~~~~
+/home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/skiplist.cpp:58:36: note: the last parameter in the range is 'probability'
+SkipList::SkipList(int levels, int probability) {
+                                   ^~~~~~~~~~~
+Suppressed 35092 warnings (35092 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+1 warning treated as error
+=====================================================
+4. clang-format warnings are in the section below
+=====================================================
+Running clang-format on ./main.cpp
+Running clang-format on ./random.cpp
+Running clang-format on ./skiplist.cpp
+=====================================================
+5. Memory leak issues are in the section below
+=====================================================
+
+=================================================================
+==25555==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 2 object(s) allocated from:
+    #0 0x7f54d8c3d7b0 in operator new(unsigned long) (/lib64/libasan.so.5+0xf17b0)
+    #1 0x406dd5 in SkipList::SkipList(SkipList const&) /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/skiplist.cpp:77
+    #2 0x40482b in test4() /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/main.cpp:113
+    #3 0x404ed7 in main /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/main.cpp:138
+    #4 0x7f54d7e91d84 in __libc_start_main (/lib64/libc.so.6+0x3ad84)
+
+Indirect leak of 144 byte(s) in 6 object(s) allocated from:
+    #0 0x7f54d8c3d7b0 in operator new(unsigned long) (/lib64/libasan.so.5+0xf17b0)
+    #1 0x40c5b0 in __gnu_cxx::new_allocator<SNode*>::allocate(unsigned long, void const*) /usr/include/c++/8/ext/new_allocator.h:111
+    #2 0x40bcd8 in std::allocator_traits<std::allocator<SNode*> >::allocate(std::allocator<SNode*>&, unsigned long) /usr/include/c++/8/bits/alloc_traits.h:436
+    #3 0x40ad79 in std::_Vector_base<SNode*, std::allocator<SNode*> >::_M_allocate(unsigned long) /usr/include/c++/8/bits/stl_vector.h:296
+    #4 0x4091e5 in std::vector<SNode*, std::allocator<SNode*> >::_M_default_append(unsigned long) /usr/include/c++/8/bits/vector.tcc:604
+    #5 0x40835e in std::vector<SNode*, std::allocator<SNode*> >::resize(unsigned long) /usr/include/c++/8/bits/stl_vector.h:827
+    #6 0x4061b6 in SNode::SNode(int) /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/skiplist.cpp:26
+    #7 0x406e1d in SkipList::SkipList(SkipList const&) /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/skiplist.cpp:77
+    #8 0x40482b in test4() /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/main.cpp:113
+    #9 0x404ed7 in main /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/main.cpp:138
+    #10 0x7f54d7e91d84 in __libc_start_main (/lib64/libc.so.6+0x3ad84)
+
+Indirect leak of 128 byte(s) in 4 object(s) allocated from:
+    #0 0x7f54d8c3d7b0 in operator new(unsigned long) (/lib64/libasan.so.5+0xf17b0)
+    #1 0x406dd5 in SkipList::SkipList(SkipList const&) /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/skiplist.cpp:77
+    #2 0x40482b in test4() /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/main.cpp:113
+    #3 0x404ed7 in main /home/cssuwbstudent/jimmygp/342-p4-jimmyhnn-master/main.cpp:138
+    #4 0x7f54d7e91d84 in __libc_start_main (/lib64/libc.so.6+0x3ad84)
+
+SUMMARY: AddressSanitizer: 336 byte(s) leaked in 12 allocation(s).
+=====================================================
+6. valgrind memory test is in the section below. Look for "definitely lost" 
+=====================================================
+==25580== Memcheck, a memory error detector
+==25580== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==25580== Using Valgrind-3.19.0 and LibVEX; rerun with -h for copyright info
+==25580== Command: ./a.out
+==25580== Parent PID: 25429
+==25580== 
+==25580== 
+==25580== HEAP SUMMARY:
+==25580==     in use at exit: 336 bytes in 12 blocks
+==25580==   total heap usage: 213 allocs, 201 frees, 84,794 bytes allocated
+==25580== 
+==25580== LEAK SUMMARY:
+==25580==    definitely lost: 64 bytes in 2 blocks
+==25580==    indirectly lost: 272 bytes in 10 blocks
+==25580==      possibly lost: 0 bytes in 0 blocks
+==25580==    still reachable: 0 bytes in 0 blocks
+==25580==         suppressed: 0 bytes in 0 blocks
+==25580== Rerun with --leak-check=full to see details of leaked memory
+==25580== 
+==25580== For lists of detected and suppressed errors, rerun with: -s
+==25580== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+Mon Nov 20 06:39:27 UTC 2023
+=====================================================
+To create an output.txt file with all the output from this script
+Run the below command
+      ./create-output.sh > output.txt 2>&1 
+=====================================================
